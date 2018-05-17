@@ -6,11 +6,13 @@ import com.quhaodian.plug.api.StoragePlugin;
 import com.quhaodian.plug.data.entity.PluginConfig;
 import com.quhaodian.plug.data.vo.FileInfo;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
 @Component("httpStorePlugin")
@@ -56,13 +58,23 @@ public class HttpStorePlugin extends StoragePlugin {
   
   @Override
   public void upload(String path, File file, String contentType) {
-    remoteUrl="";
+    remoteUrl = "";
     PluginConfig pluginConfig = getPluginConfig();
     if (pluginConfig != null) {
+      File tempFile = new File(System.getProperty("java.io.tmpdir") + "/" + path);
+      if (!tempFile.getParentFile().exists()) {
+        tempFile.getParentFile().mkdirs();
+      }
+      try {
+        FileUtils.moveFile(file, tempFile);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      
       String url = pluginConfig.getAttribute("url");
       HttpRequest httpRequest = HttpRequest
           .post(url)
-          .form("file", file);
+          .form("file", tempFile);
       
       HttpResponse httpResponse = httpRequest.send();
       if (httpResponse != null && httpResponse.statusCode() == 200) {
@@ -70,10 +82,11 @@ public class HttpStorePlugin extends StoragePlugin {
         String body = httpResponse.bodyText();
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(body);
-        if (element==null){
+        if (element == null) {
           return;
         }
-        remoteUrl=element.getAsJsonObject().get("url").getAsString();
+        remoteUrl = element.getAsJsonObject().get("url").getAsString();
+        FileUtils.deleteQuietly(tempFile);
       }
     }
   }

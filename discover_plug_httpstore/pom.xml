@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>discover_plug_httpstore</artifactId>
-    <version>1.02</version>
+    <version>1.03</version>
 
     <name>discover_plug_httpstore</name>
     <!-- FIXME change it to the project's website -->
