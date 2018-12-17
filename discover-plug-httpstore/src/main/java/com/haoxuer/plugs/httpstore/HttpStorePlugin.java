@@ -1,15 +1,16 @@
-package com.quhaodian.plugs.httpstore;
+package com.haoxuer.plugs.httpstore;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.quhaodian.plug.api.StoragePlugin;
-import com.quhaodian.plug.data.entity.PluginConfig;
-import com.quhaodian.plug.data.vo.FileInfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.haoxuer.discover.plug.api.StoragePlugin;
+import com.haoxuer.discover.plug.data.entity.PluginConfig;
+import com.haoxuer.discover.plug.data.vo.FileInfo;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import org.apache.commons.io.FileUtils;
@@ -34,26 +35,12 @@ public class HttpStorePlugin extends StoragePlugin {
     return "ada.young";
   }
   
+
   @Override
-  public String getSiteUrl() {
-    return "";
+  public String viewName() {
+    return "httpstore";
   }
-  
-  @Override
-  public String getInstallUrl() {
-    return "admin/storage_plugin/httpstore/install.htm";
-  }
-  
-  @Override
-  public String getUninstallUrl() {
-    return "admin/storage_plugin/httpstore/uninstall.htm";
-  }
-  
-  @Override
-  public String getSettingUrl() {
-    return "admin/storage_plugin/httpstore/setting.htm";
-  }
-  
+
   private String remoteUrl;
   
   @Override

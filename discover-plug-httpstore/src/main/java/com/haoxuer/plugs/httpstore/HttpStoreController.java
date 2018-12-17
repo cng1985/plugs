@@ -1,32 +1,33 @@
-package com.quhaodian.plugs.httpstore;
+package com.haoxuer.plugs.httpstore;
 
 
-import com.quhaodian.plug.api.IPlugin;
-import com.quhaodian.plug.data.entity.PluginConfig;
-import com.quhaodian.plug.data.plugs.base.PlugTemplateController;
-import com.quhaodian.plug.data.service.PluginConfigService;
 import javax.annotation.Resource;
+
+import com.haoxuer.discover.plug.api.IPlugin;
+import com.haoxuer.discover.plug.data.entity.PluginConfig;
+import com.haoxuer.discover.plug.data.plugs.base.PlugTemplateController;
+import com.haoxuer.discover.plug.data.service.PluginConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin/storage_plugin/httpstore")
+@RequestMapping("/admin/plugin_storage/httpstore")
 public class HttpStoreController extends PlugTemplateController {
   
   @Resource(name = "httpStorePlugin")
-  private HttpStorePlugin diskFilePlugin;
+  private HttpStorePlugin httpStorePlugin;
   
   @Resource(name = "pluginConfigServiceImpl")
   private PluginConfigService pluginConfigService;
   
   @Override
   public PluginConfig getPluginConfig() {
-    return diskFilePlugin.getPluginConfig();
+    return httpStorePlugin.getPluginConfig();
   }
   
   @Override
   public IPlugin getPlug() {
-    return diskFilePlugin;
+    return httpStorePlugin;
   }
   
   @Override
@@ -36,7 +37,7 @@ public class HttpStoreController extends PlugTemplateController {
   
   @Override
   public String getView() {
-    return "/admin/storage_plugin";
+    return "/admin/plugin_storage";
   }
   
   @Override
