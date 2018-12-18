@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.01</version>
     <modules>
-        <module>discover_plug_httpstore</module>
+        <module>discover-plug-httpstore</module>
     </modules>
 
     <name>plugs-root</name>
